@@ -2,7 +2,7 @@ import json
 import os
 import posixpath
 import re
-from hashlib import md5
+from hashlib import sha1
 from urllib.parse import unquote, urldefrag, urlsplit, urlunsplit
 
 from django.conf import STATICFILES_STORAGE_ALIAS, settings
@@ -126,7 +126,7 @@ class HashedFilesMixin:
         """
         if content is None:
             return None
-        hasher = md5(usedforsecurity=False)
+        hasher = sha1(usedforsecurity=False)
         for chunk in content.chunks():
             hasher.update(chunk)
         return hasher.hexdigest()[:12]
